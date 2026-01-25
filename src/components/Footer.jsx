@@ -1,5 +1,12 @@
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react'
+import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin, Youtube } from 'lucide-react'
+
+// TikTok icon component (custom SVG)
+const TikTokIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+  </svg>
+)
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -32,11 +39,11 @@ const Footer = () => {
   }
 
   const socialLinks = [
-    { icon: Facebook, href: '#', color: 'hover:text-blue-600' },
-    { icon: Twitter, href: '#', color: 'hover:text-blue-400' },
-    { icon: Instagram, href: '#', color: 'hover:text-pink-600' },
-    { icon: Linkedin, href: '#', color: 'hover:text-blue-700' },
-    { icon: Youtube, href: '#', color: 'hover:text-red-600' }
+    { icon: Facebook, href: 'https://www.facebook.com/share/16FEEX2fuN/?mibextid=wwXIfr', color: 'hover:text-blue-600' },
+    { icon: TikTokIcon, href: 'https://www.tiktok.com/@ngoma_marke?_t=ZM-90x5gLb9ueK&_r=1', color: 'hover:text-pink-500' },
+    { icon: Instagram, href: 'https://www.instagram.com/ngoma_market?igsh=MW5sdzl5ZmZlejVnNg==', color: 'hover:text-pink-600' },
+    { icon: Youtube, href: 'https://youtube.com/@ngomamarket?si=Ye8gXErNuznMIelN', color: 'hover:text-red-600' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/groups/15689045', color: 'hover:text-blue-700' }
   ]
 
   return (
