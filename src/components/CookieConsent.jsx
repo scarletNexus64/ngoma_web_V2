@@ -1,8 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Cookie, X, Shield, Settings } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
 
 const CookieConsent = () => {
+  const { isDark } = useTheme()
   const [showBanner, setShowBanner] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
 
@@ -38,7 +40,7 @@ const CookieConsent = () => {
           transition={{ duration: 0.5, type: 'spring' }}
           className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6"
         >
-          <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-2xl border border-gray-200">
+          <div className="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 transition-colors duration-300">
             {!showSettings ? (
               <div className="p-6 md:p-8">
                 <div className="flex items-start justify-between mb-4">
@@ -47,23 +49,23 @@ const CookieConsent = () => {
                       <Cookie className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-gray-900">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                         Cookies & Confidentialité
                       </h3>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
                         Nous respectons votre vie privée
                       </p>
                     </div>
                   </div>
                   <button
                     onClick={handleReject}
-                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                    className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
 
-                <p className="text-gray-700 mb-6 leading-relaxed">
+                <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
                   Nous utilisons des cookies pour améliorer votre expérience sur notre site,
                   analyser le trafic et personnaliser le contenu. En cliquant sur "Tout accepter",
                   vous consentez à l'utilisation de tous les cookies.
@@ -78,20 +80,20 @@ const CookieConsent = () => {
                   </button>
                   <button
                     onClick={handleAcceptEssential}
-                    className="flex-1 border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-xl font-semibold hover:border-primary hover:text-primary hover:bg-purple-50 transition-all duration-300"
+                    className="flex-1 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-xl font-semibold hover:border-primary hover:text-primary hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all duration-300"
                   >
                     Essentiels uniquement
                   </button>
                   <button
                     onClick={() => setShowSettings(true)}
-                    className="flex items-center justify-center space-x-2 px-6 py-3 text-gray-600 hover:text-gray-900 transition-colors"
+                    className="flex items-center justify-center space-x-2 px-6 py-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
                   >
                     <Settings className="w-5 h-5" />
                     <span className="font-medium">Personnaliser</span>
                   </button>
                 </div>
 
-                <div className="mt-4 flex items-center justify-center space-x-2 text-sm text-gray-500">
+                <div className="mt-4 flex items-center justify-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
                   <Shield className="w-4 h-4" />
                   <span>
                     Vos données sont protégées et sécurisées
@@ -101,61 +103,61 @@ const CookieConsent = () => {
             ) : (
               <div className="p-6 md:p-8">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-xl font-bold text-gray-900">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                     Paramètres des cookies
                   </h3>
                   <button
                     onClick={() => setShowSettings(false)}
-                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                    className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
 
                 <div className="space-y-4 mb-6">
-                  <div className="border border-gray-200 rounded-xl p-4">
+                  <div className="border border-gray-200 dark:border-gray-700 rounded-xl p-4">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center space-x-3">
                         <Shield className="w-5 h-5 text-green-500" />
-                        <h4 className="font-semibold text-gray-900">Cookies essentiels</h4>
+                        <h4 className="font-semibold text-gray-900 dark:text-white">Cookies essentiels</h4>
                       </div>
-                      <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                      <span className="text-xs bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 px-2 py-1 rounded">
                         Toujours actif
                       </span>
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
                       Nécessaires au fonctionnement du site. Ne peuvent pas être désactivés.
                     </p>
                   </div>
 
-                  <div className="border border-gray-200 rounded-xl p-4">
+                  <div className="border border-gray-200 dark:border-gray-700 rounded-xl p-4">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center space-x-3">
                         <Cookie className="w-5 h-5 text-purple-500" />
-                        <h4 className="font-semibold text-gray-900">Cookies analytiques</h4>
+                        <h4 className="font-semibold text-gray-900 dark:text-white">Cookies analytiques</h4>
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" className="sr-only peer" defaultChecked />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+                        <div className="w-11 h-6 bg-gray-200 dark:bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-300 dark:peer-focus:ring-purple-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
                       </label>
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
                       Nous aident à comprendre comment vous utilisez notre site.
                     </p>
                   </div>
 
-                  <div className="border border-gray-200 rounded-xl p-4">
+                  <div className="border border-gray-200 dark:border-gray-700 rounded-xl p-4">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center space-x-3">
                         <Cookie className="w-5 h-5 text-pink-500" />
-                        <h4 className="font-semibold text-gray-900">Cookies marketing</h4>
+                        <h4 className="font-semibold text-gray-900 dark:text-white">Cookies marketing</h4>
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" className="sr-only peer" defaultChecked />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-600"></div>
+                        <div className="w-11 h-6 bg-gray-200 dark:bg-gray-600 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-300 dark:peer-focus:ring-pink-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-600"></div>
                       </label>
                     </div>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
                       Permettent de vous proposer des publicités pertinentes.
                     </p>
                   </div>
@@ -170,7 +172,7 @@ const CookieConsent = () => {
                   </button>
                   <button
                     onClick={() => setShowSettings(false)}
-                    className="flex-1 border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-xl font-semibold hover:border-gray-400 transition-all duration-300"
+                    className="flex-1 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-xl font-semibold hover:border-gray-400 dark:hover:border-gray-400 transition-all duration-300"
                   >
                     Retour
                   </button>

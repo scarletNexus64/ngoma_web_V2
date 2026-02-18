@@ -7,6 +7,9 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['SF Pro', 'system-ui', 'sans-serif'],
+      },
       colors: {
         primary: {
           DEFAULT: '#8B5CF6', // Violet from logo

@@ -1,8 +1,10 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useRef, useEffect } from 'react'
 import { MessageCircle, X, Send, Bot, User } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
 
 const Chatbot = () => {
+  const { isDark } = useTheme()
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([
     {
@@ -43,7 +45,7 @@ const Chatbot = () => {
       suggestions: ['Comment ça marche?', 'Quels sont les tarifs?'],
     },
     'freemium': {
-      text: "Oui! Le mode freemium vous permet de:\n\n✅ Publier jusqu'à 6 produits gratuitement\n✅ Tester toutes les fonctionnalités de base\n✅ Découvrir la plateforme sans engagement\n\nC'est parfait pour débuter!",
+      text: "Oui! Le mode gratuit vous permet de:\n\n✅ Publier jusqu'à 6 produits gratuitement\n✅ Tester toutes les fonctionnalités de base\n✅ Découvrir la plateforme sans engagement\n\nC'est parfait pour débuter!",
       suggestions: ['Quels sont les tarifs?', 'Comment télécharger?'],
     },
     'contact': {
@@ -134,7 +136,7 @@ const Chatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 100, scale: 0.8 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-6 right-6 z-40 w-96 max-w-[calc(100vw-2rem)] h-[600px] max-h-[calc(100vh-2rem)] bg-white rounded-2xl shadow-2xl flex flex-col"
+            className="fixed bottom-6 right-6 z-40 w-96 max-w-[calc(100vw-2rem)] h-[600px] max-h-[calc(100vh-2rem)] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl flex flex-col transition-colors duration-300"
           >
             {/* Header */}
             <div className="bg-gradient-primary p-4 rounded-t-2xl flex items-center justify-between">
@@ -159,7 +161,7 @@ const Chatbot = () => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-900">
               {messages.map((message, index) => (
                 <motion.div
                   key={index}
@@ -169,7 +171,7 @@ const Chatbot = () => {
                   className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div className={`flex items-start space-x-2 max-w-[80%] ${message.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.type === 'user' ? 'bg-gradient-primary' : 'bg-white border-2 border-purple-200'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.type === 'user' ? 'bg-gradient-primary' : 'bg-white dark:bg-gray-700 border-2 border-purple-200 dark:border-purple-700'}`}>
                       {message.type === 'user' ? (
                         <User className="w-5 h-5 text-white" />
                       ) : (
@@ -177,7 +179,7 @@ const Chatbot = () => {
                       )}
                     </div>
                     <div>
-                      <div className={`p-3 rounded-2xl ${message.type === 'user' ? 'bg-gradient-primary text-white rounded-tr-none' : 'bg-white text-gray-800 rounded-tl-none shadow-md'}`}>
+                      <div className={`p-3 rounded-2xl ${message.type === 'user' ? 'bg-gradient-primary text-white rounded-tr-none' : 'bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded-tl-none shadow-md'}`}>
                         <p className="text-sm whitespace-pre-line">{message.text}</p>
                       </div>
                       {message.suggestions && (
@@ -186,7 +188,7 @@ const Chatbot = () => {
                             <button
                               key={idx}
                               onClick={() => handleQuickQuestion(suggestion)}
-                              className="block w-full text-left text-xs bg-white hover:bg-purple-50 text-purple-600 px-3 py-2 rounded-lg transition-colors border border-purple-200"
+                              className="block w-full text-left text-xs bg-white dark:bg-gray-700 hover:bg-purple-50 dark:hover:bg-purple-900/30 text-purple-600 dark:text-purple-400 px-3 py-2 rounded-lg transition-colors border border-purple-200 dark:border-purple-700"
                             >
                               {suggestion}
                             </button>
@@ -205,14 +207,14 @@ const Chatbot = () => {
                   className="flex justify-start"
                 >
                   <div className="flex items-start space-x-2">
-                    <div className="w-8 h-8 rounded-full bg-white border-2 border-purple-200 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full bg-white dark:bg-gray-700 border-2 border-purple-200 dark:border-purple-700 flex items-center justify-center">
                       <Bot className="w-5 h-5 text-primary" />
                     </div>
-                    <div className="bg-white p-3 rounded-2xl rounded-tl-none shadow-md">
+                    <div className="bg-white dark:bg-gray-700 p-3 rounded-2xl rounded-tl-none shadow-md">
                       <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="w-2 h-2 bg-gray-400 dark:bg-gray-400 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-gray-400 dark:bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                        <div className="w-2 h-2 bg-gray-400 dark:bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                       </div>
                     </div>
                   </div>
@@ -223,14 +225,14 @@ const Chatbot = () => {
 
             {/* Quick Questions */}
             {messages.length === 1 && (
-              <div className="px-4 py-2 bg-gray-50 border-t border-gray-200">
-                <p className="text-xs text-gray-600 mb-2">Questions fréquentes:</p>
+              <div className="px-4 py-2 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+                <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">Questions fréquentes:</p>
                 <div className="grid grid-cols-2 gap-2">
                   {quickQuestions.map((question, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleQuickQuestion(question)}
-                      className="text-xs bg-white hover:bg-purple-50 text-purple-600 px-3 py-2 rounded-lg transition-colors border border-purple-200 text-left"
+                      className="text-xs bg-white dark:bg-gray-700 hover:bg-purple-50 dark:hover:bg-purple-900/30 text-purple-600 dark:text-purple-400 px-3 py-2 rounded-lg transition-colors border border-purple-200 dark:border-purple-700 text-left"
                     >
                       {question}
                     </button>
@@ -240,7 +242,7 @@ const Chatbot = () => {
             )}
 
             {/* Input */}
-            <div className="p-4 bg-white border-t border-gray-200 rounded-b-2xl">
+            <div className="p-4 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 rounded-b-2xl">
               <div className="flex space-x-2">
                 <input
                   type="text"
@@ -248,7 +250,7 @@ const Chatbot = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSendMessage(inputValue)}
                   placeholder="Tapez votre message..."
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300"
                 />
                 <button
                   onClick={() => handleSendMessage(inputValue)}
